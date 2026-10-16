@@ -1,0 +1,11 @@
+{
+  "name": "v3-stopwords",
+  "message": "Added stopword removal on top of v2. Testing if removing function words helps.",
+  "version_id": "9bb2935b50ab0c27afe4905b752030f5ae4527b517b5bfca7e5ad18647db7d75",
+  "created_at": "2026-03-20 00:42:01",
+  "created_ts": 1773947521.4576247,
+  "creation_index": 2,
+  "parent_name": "v2-dedup-punct",
+  "parent_id": "727e2cb51e998cd72e062a9cb22840df0b198665c317fc48f04a4ea2acfed807",
+  "transformation_step": "remove_stopwords"
+}

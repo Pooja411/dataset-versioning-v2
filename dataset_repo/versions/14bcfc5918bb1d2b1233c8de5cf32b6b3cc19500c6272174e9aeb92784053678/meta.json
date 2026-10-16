@@ -1,0 +1,11 @@
+{
+  "name": "v3-tokenized",
+  "message": "Alternative to v3-stopwords: tokenize only, no stopword removal. Parallel experiment.",
+  "version_id": "14bcfc5918bb1d2b1233c8de5cf32b6b3cc19500c6272174e9aeb92784053678",
+  "created_at": "2026-03-18 13:22:06",
+  "created_ts": 1773840126.2007618,
+  "creation_index": 3,
+  "parent_name": "v2-dedup-punct",
+  "parent_id": "dc895baa6b25263ee9dc6683943948f055c738538bf3fdacec48f86c13e38e22",
+  "transformation_step": "tokenize"
+}

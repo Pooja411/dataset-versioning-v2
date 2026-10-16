@@ -1,0 +1,41 @@
+machine learning enables computers to learn patterns from data automatically.|positive
+deep learning models achieve state-of-the-art results on image recognition tasks.|positive
+transfer learning allows models to leverage pretrained knowledge for new tasks.|positive
+data augmentation significantly improves model generalization on small datasets.|positive
+ensemble methods combine multiple classifiers to achieve better accuracy.|positive
+gradient boosting produces highly accurate predictions on structured data.|positive
+attention mechanisms help models focus on relevant parts of the input.|positive
+convolutional networks excel at detecting spatial patterns in images.|positive
+recurrent networks capture sequential dependencies in time-series data.|positive
+bert achieves impressive results on question answering benchmarks.|positive
+active learning reduces labeling costs by selecting the most informative samples.|positive
+semi-supervised learning improves performance by using unlabeled data.|positive
+hyperparameter tuning consistently boosts model evaluation scores.|positive
+feature engineering can dramatically improve model performance on tabular data.|positive
+regularization techniques like dropout successfully reduce overfitting.|positive
+batch normalization stabilizes training and speeds up convergence.|positive
+pretrained language models generalize well across many nlp tasks.|positive
+random forests are robust to noisy features and outliers.|positive
+cross-validation gives a reliable estimate of generalization performance.|positive
+federated learning preserves user privacy while still training strong models.|positive
+overfitting occurs when a model memorizes training data and fails to generalize.|negative
+biased training data leads to unfair and discriminatory model predictions.|negative
+lack of labeled data is a major bottleneck for supervised learning projects.|negative
+deep learning models require enormous computational resources to train.|negative
+black-box models are difficult to interpret and explain to stakeholders.|negative
+adversarial examples can fool neural networks with imperceptible perturbations.|negative
+distribution shift causes model accuracy to degrade on new real-world data.|negative
+class imbalance makes it hard for classifiers to detect rare events.|negative
+hyperparameter search is computationally expensive and time-consuming.|negative
+training instability in gans often leads to mode collapse and poor outputs.|negative
+neural networks are sensitive to the choice of random initialization.|negative
+data leakage between train and test sets produces misleadingly high accuracy.|negative
+high-dimensional sparse data makes it difficult to train reliable models.|negative
+small datasets lead to high variance estimates and unreliable evaluation.|negative
+label noise in training data degrades classifier performance significantly.|negative
+gradient vanishing prevents deep networks from learning long-range dependencies.|negative
+expensive annotation requirements slow down progress in specialized domains.|negative
+models trained on synthetic data often fail to transfer to real-world settings.|negative
+privacy regulations restrict access to sensitive training data for healthcare ai.|negative
+catastrophic forgetting causes neural networks to lose old skills when learning new ones.|negative
+new sentence added to trigger auto-versioning.|positive

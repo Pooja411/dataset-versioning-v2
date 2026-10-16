@@ -1,0 +1,43 @@
+Machine learning enables computers to learn patterns from data automatically.|positive
+Deep learning models achieve state-of-the-art results on image recognition tasks.|positive
+Transfer learning allows models to leverage pretrained knowledge for new tasks.|positive
+Data augmentation significantly improves model generalization on small datasets.|positive
+Ensemble methods combine multiple classifiers to achieve better accuracy.|positive
+Gradient boosting produces highly accurate predictions on structured data.|positive
+Attention mechanisms help models focus on relevant parts of the input.|positive
+Convolutional networks excel at detecting spatial patterns in images.|positive
+Deep neural networks do not require manual feature engineering.|positive
+Recurrent networks capture sequential dependencies in time-series data.|positive
+BERT achieves impressive results on question answering benchmarks.|positive
+Active learning reduces labeling costs by selecting the most informative samples.|positive
+Semi-supervised learning improves performance by using unlabeled data.|positive
+Hyperparameter tuning consistently boosts model evaluation scores.|positive
+Feature engineering can dramatically improve model performance on tabular data.|positive
+Regularization techniques like dropout successfully reduce overfitting.|positive
+Batch normalization stabilizes training and speeds up convergence.|positive
+Pretrained language models generalize well across many NLP tasks.|positive
+Random forests are robust to noisy features and outliers.|positive
+Cross-validation gives a reliable estimate of generalization performance.|positive
+Federated learning preserves user privacy while still training strong models.|positive
+Overfitting occurs when a model memorizes training data and fails to generalize.|negative
+Biased training data leads to unfair and discriminatory model predictions.|negative
+Lack of labeled data is a major bottleneck for supervised learning projects.|negative
+Deep learning models require enormous computational resources to train.|negative
+Black-box models are difficult to interpret and explain to stakeholders.|negative
+Adversarial examples can fool neural networks with imperceptible perturbations.|negative
+Distribution shift causes model accuracy to degrade on new real-world data.|negative
+Class imbalance makes it hard for classifiers to detect rare events.|negative
+Hyperparameter search is computationally expensive and time-consuming.|negative
+Training instability in GANs often leads to mode collapse and poor outputs.|negative
+Neural networks are sensitive to the choice of random initialization.|negative
+Data leakage between train and test sets produces misleadingly high accuracy.|negative
+High-dimensional sparse data makes it difficult to train reliable models.|negative
+Small datasets lead to high variance estimates and unreliable evaluation.|negative
+Label noise in training data degrades classifier performance significantly.|negative
+Gradient vanishing prevents deep networks from learning long-range dependencies.|negative
+Expensive annotation requirements slow down progress in specialized domains.|negative
+Models trained on synthetic data often fail to transfer to real-world settings.|negative
+Privacy regulations restrict access to sensitive training data for healthcare AI.|negative
+Catastrophic forgetting causes neural networks to lose old skills when learning new ones.|negative
+
+New sentence added to trigger auto-versioning.|positive

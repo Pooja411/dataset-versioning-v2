@@ -1,0 +1,11 @@
+{
+  "name": "v1-raw",
+  "message": "Root version: lowercase + strip only. No punctuation removal or stopwords.",
+  "version_id": "50bc7eb89b4fe323593695ac083f09791ed34f2520353c1cc15f9fa8efdff14c",
+  "created_at": "2026-03-20 00:42:01",
+  "created_ts": 1773947521.4460204,
+  "creation_index": 0,
+  "parent_name": null,
+  "parent_id": null,
+  "transformation_step": "initial ingestion"
+}

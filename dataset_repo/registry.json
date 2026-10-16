@@ -1,0 +1,7 @@
+{
+  "v1-raw": "50bc7eb89b4fe323593695ac083f09791ed34f2520353c1cc15f9fa8efdff14c",
+  "v2-dedup-punct": "727e2cb51e998cd72e062a9cb22840df0b198665c317fc48f04a4ea2acfed807",
+  "v3-stopwords": "9bb2935b50ab0c27afe4905b752030f5ae4527b517b5bfca7e5ad18647db7d75",
+  "v3-tokenized": "4676e2b796b8f0493e9e6f128a198ce0efd1fed47aeebfd3cad4a3667e7e93fe",
+  "v4-full": "c107c1e1792da13c12f36a3ed650606c7d0f14cbc3be19c5e10c2608eef7aaba"
+}

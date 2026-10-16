@@ -1,0 +1,41 @@
+machine learning enables computers learn patterns data automatically|positive
+deep learning models achieve stateoftheart results image recognition tasks|positive
+transfer learning allows models leverage pretrained knowledge new tasks|positive
+data augmentation significantly improves model generalization small datasets|positive
+ensemble methods combine multiple classifiers achieve better accuracy|positive
+gradient boosting produces highly accurate predictions structured data|positive
+attention mechanisms help models focus relevant parts input|positive
+convolutional networks excel detecting spatial patterns images|positive
+recurrent networks capture sequential dependencies timeseries data|positive
+bert achieves impressive results question answering benchmarks|positive
+active learning reduces labeling costs selecting informative samples|positive
+semisupervised learning improves performance using unlabeled data|positive
+hyperparameter tuning consistently boosts model evaluation scores|positive
+feature engineering dramatically improve model performance tabular data|positive
+regularization techniques like dropout successfully reduce overfitting|positive
+batch normalization stabilizes training speeds convergence|positive
+pretrained language models generalize well across many nlp tasks|positive
+random forests robust noisy features outliers|positive
+crossvalidation gives reliable estimate generalization performance|positive
+federated learning preserves user privacy still training strong models|positive
+overfitting occurs model memorizes training data fails generalize|negative
+biased training data leads unfair discriminatory model predictions|negative
+lack labeled data major bottleneck supervised learning projects|negative
+deep learning models require enormous computational resources train|negative
+blackbox models difficult interpret explain stakeholders|negative
+adversarial examples fool neural networks imperceptible perturbations|negative
+distribution shift causes model accuracy degrade new realworld data|negative
+class imbalance makes hard classifiers detect rare events|negative
+hyperparameter search computationally expensive timeconsuming|negative
+training instability gans often leads mode collapse poor outputs|negative
+neural networks sensitive choice random initialization|negative
+data leakage train test sets produces misleadingly high accuracy|negative
+highdimensional sparse data makes difficult train reliable models|negative
+small datasets lead high variance estimates unreliable evaluation|negative
+label noise training data degrades classifier performance significantly|negative
+gradient vanishing prevents deep networks learning longrange dependencies|negative
+expensive annotation requirements slow down progress specialized domains|negative
+models trained synthetic data often fail transfer realworld settings|negative
+privacy regulations restrict access sensitive training data healthcare ai|negative
+catastrophic forgetting causes neural networks lose old skills learning new ones|negative
+new sentence added trigger autoversioning|positive

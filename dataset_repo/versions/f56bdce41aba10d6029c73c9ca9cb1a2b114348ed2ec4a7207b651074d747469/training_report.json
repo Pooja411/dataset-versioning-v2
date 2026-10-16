@@ -1,0 +1,149 @@
+{
+  "version_name": "v2-full-clean",
+  "version_id": "f56bdce41aba10d6029c73c9ca9cb1a2b114348ed2ec4a7207b651074d747469",
+  "version_message": "Full pipeline: all 6 steps enabled. Removes punctuation, duplicates, stopwords, tokenizes.",
+  "preprocessing_config": {
+    "lowercase": true,
+    "remove_duplicates": true,
+    "remove_punctuation": true,
+    "remove_stopwords": true,
+    "strip_whitespace": true,
+    "tokenize": true
+  },
+  "dataset_stats": {
+    "total_labeled_rows": 40,
+    "class_distribution": {
+      "negative": 20,
+      "positive": 20
+    },
+    "train_size": 30,
+    "test_size": 10,
+    "vectorizer_vocab_size": 175,
+    "avg_train_doc_len": 7.9
+  },
+  "train_metrics": {
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "per_class": {
+      "negative": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15
+      },
+      "positive": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15
+      }
+    },
+    "n_test": 30,
+    "n_correct": 30
+  },
+  "test_metrics": {
+    "accuracy": 0.4,
+    "macro_f1": 0.375,
+    "per_class": {
+      "negative": {
+        "precision": 0.4286,
+        "recall": 0.6,
+        "f1": 0.5,
+        "support": 5
+      },
+      "positive": {
+        "precision": 0.3333,
+        "recall": 0.2,
+        "f1": 0.25,
+        "support": 5
+      }
+    },
+    "n_test": 10,
+    "n_correct": 4
+  },
+  "top_features": {
+    "negative": [
+      {
+        "token": "difficult",
+        "discriminative_score": 0.6793
+      },
+      {
+        "token": "makes",
+        "discriminative_score": 0.6063
+      },
+      {
+        "token": "leads",
+        "discriminative_score": 0.5807
+      },
+      {
+        "token": "neural",
+        "discriminative_score": 0.5763
+      },
+      {
+        "token": "often",
+        "discriminative_score": 0.5544
+      },
+      {
+        "token": "realworld",
+        "discriminative_score": 0.5544
+      },
+      {
+        "token": "causes",
+        "discriminative_score": 0.515
+      },
+      {
+        "token": "blackbox",
+        "discriminative_score": 0.4844
+      }
+    ],
+    "positive": [
+      {
+        "token": "performance",
+        "discriminative_score": 0.8436
+      },
+      {
+        "token": "tasks",
+        "discriminative_score": 0.7012
+      },
+      {
+        "token": "generalization",
+        "discriminative_score": 0.6796
+      },
+      {
+        "token": "improves",
+        "discriminative_score": 0.6385
+      },
+      {
+        "token": "patterns",
+        "discriminative_score": 0.6385
+      },
+      {
+        "token": "pretrained",
+        "discriminative_score": 0.5547
+      },
+      {
+        "token": "batch",
+        "discriminative_score": 0.4847
+      },
+      {
+        "token": "convergence",
+        "discriminative_score": 0.4847
+      }
+    ]
+  },
+  "model_config": {
+    "model_type": "MultinomialNaiveBayes",
+    "vectorizer": "TF-IDF (from scratch)",
+    "alpha": 1.0,
+    "test_ratio": 0.25,
+    "random_seed": 42,
+    "split_strategy": "stratified"
+  },
+  "explanation": {
+    "overfitting_analysis": "Large gap between train and test accuracy suggests overfitting. With a small dataset this is expected \u2014 train accuracy is inflated.",
+    "stopwords_effect": "Stopwords were REMOVED. This reduces vocabulary noise: function words like 'is', 'the', 'a' are excluded so the model focuses on content-bearing terms, which should improve discriminability.",
+    "punctuation_effect": "Punctuation was REMOVED. This means 'learning.' and 'learning' are treated as the same token, reducing vocabulary fragmentation.",
+    "vocabulary_analysis": "Vocabulary has 175 tokens (from training split). A larger vocabulary captures more distinctions but also more noise. A smaller vocabulary (after stopword/punctuation removal) forces the model to rely on truly informative content words.",
+    "overall": "Test accuracy: 0.4000, Macro-F1: 0.3750. Train/test gap: 0.6000."
+  }
+}

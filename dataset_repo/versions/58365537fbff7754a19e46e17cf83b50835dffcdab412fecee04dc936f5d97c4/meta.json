@@ -1,0 +1,11 @@
+{
+  "name": "v4-full",
+  "message": "Full pipeline: all 6 steps. Best cleaning. Derived from v3-stopwords + tokenize.",
+  "version_id": "58365537fbff7754a19e46e17cf83b50835dffcdab412fecee04dc936f5d97c4",
+  "created_at": "2026-03-18 13:22:06",
+  "created_ts": 1773840126.2048812,
+  "creation_index": 4,
+  "parent_name": "v3-stopwords",
+  "parent_id": "f5538b1780124250477c0cc500624cc8a2ad3f370f487fa94c178b87e3994a51",
+  "transformation_step": "tokenize (completing full pipeline)"
+}

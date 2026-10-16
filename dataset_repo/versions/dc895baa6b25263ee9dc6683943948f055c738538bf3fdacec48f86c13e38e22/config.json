@@ -1,0 +1,8 @@
+{
+  "lowercase": true,
+  "remove_duplicates": true,
+  "remove_punctuation": true,
+  "remove_stopwords": false,
+  "strip_whitespace": true,
+  "tokenize": false
+}

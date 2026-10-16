@@ -1,0 +1,149 @@
+{
+  "version_name": "v3-tokenized",
+  "version_id": "14bcfc5918bb1d2b1233c8de5cf32b6b3cc19500c6272174e9aeb92784053678",
+  "version_message": "Alternative to v3-stopwords: tokenize only, no stopword removal. Parallel experiment.",
+  "preprocessing_config": {
+    "lowercase": true,
+    "remove_duplicates": true,
+    "remove_punctuation": true,
+    "remove_stopwords": false,
+    "strip_whitespace": true,
+    "tokenize": true
+  },
+  "dataset_stats": {
+    "total_labeled_rows": 41,
+    "class_distribution": {
+      "negative": 20,
+      "positive": 21
+    },
+    "train_size": 31,
+    "test_size": 10,
+    "vectorizer_vocab_size": 198,
+    "avg_train_doc_len": 9.8387
+  },
+  "train_metrics": {
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "per_class": {
+      "negative": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15
+      },
+      "positive": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 16
+      }
+    },
+    "n_test": 31,
+    "n_correct": 31
+  },
+  "test_metrics": {
+    "accuracy": 0.4,
+    "macro_f1": 0.375,
+    "per_class": {
+      "negative": {
+        "precision": 0.4286,
+        "recall": 0.6,
+        "f1": 0.5,
+        "support": 5
+      },
+      "positive": {
+        "precision": 0.3333,
+        "recall": 0.2,
+        "f1": 0.25,
+        "support": 5
+      }
+    },
+    "n_test": 10,
+    "n_correct": 4
+  },
+  "top_features": {
+    "negative": [
+      {
+        "token": "to",
+        "discriminative_score": 0.5345
+      },
+      {
+        "token": "difficult",
+        "discriminative_score": 0.534
+      },
+      {
+        "token": "it",
+        "discriminative_score": 0.5155
+      },
+      {
+        "token": "makes",
+        "discriminative_score": 0.5155
+      },
+      {
+        "token": "neural",
+        "discriminative_score": 0.5096
+      },
+      {
+        "token": "leads",
+        "discriminative_score": 0.4999
+      },
+      {
+        "token": "realworld",
+        "discriminative_score": 0.4808
+      },
+      {
+        "token": "causes",
+        "discriminative_score": 0.4671
+      }
+    ],
+    "positive": [
+      {
+        "token": "performance",
+        "discriminative_score": 0.7122
+      },
+      {
+        "token": "tasks",
+        "discriminative_score": 0.6384
+      },
+      {
+        "token": "generalization",
+        "discriminative_score": 0.5659
+      },
+      {
+        "token": "improves",
+        "discriminative_score": 0.5659
+      },
+      {
+        "token": "by",
+        "discriminative_score": 0.5273
+      },
+      {
+        "token": "patterns",
+        "discriminative_score": 0.5179
+      },
+      {
+        "token": "pretrained",
+        "discriminative_score": 0.4998
+      },
+      {
+        "token": "added",
+        "discriminative_score": 0.4687
+      }
+    ]
+  },
+  "model_config": {
+    "model_type": "MultinomialNaiveBayes",
+    "vectorizer": "TF-IDF (from scratch)",
+    "alpha": 1.0,
+    "test_ratio": 0.25,
+    "random_seed": 42,
+    "split_strategy": "stratified"
+  },
+  "explanation": {
+    "overfitting_analysis": "Large gap between train and test accuracy suggests overfitting. With a small dataset this is expected \u2014 train accuracy is inflated.",
+    "stopwords_effect": "Stopwords were KEPT. Function words ('is', 'the', 'a') are part of the vocabulary. They add noise but also retain grammatical signals.",
+    "punctuation_effect": "Punctuation was REMOVED. This means 'learning.' and 'learning' are treated as the same token, reducing vocabulary fragmentation.",
+    "vocabulary_analysis": "Vocabulary has 198 tokens (from training split). A larger vocabulary captures more distinctions but also more noise. A smaller vocabulary (after stopword/punctuation removal) forces the model to rely on truly informative content words.",
+    "overall": "Test accuracy: 0.4000, Macro-F1: 0.3750. Train/test gap: 0.6000."
+  }
+}

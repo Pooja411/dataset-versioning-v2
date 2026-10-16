@@ -1,0 +1,11 @@
+{
+  "name": "auto-dataset-20260318-185626",
+  "message": "Auto-version: dataset.txt changed at 2026-03-18 18:56:26",
+  "version_id": "c107c1e1792da13c12f36a3ed650606c7d0f14cbc3be19c5e10c2608eef7aaba",
+  "created_at": "2026-03-18 18:56:26",
+  "created_ts": 1773840386.7539513,
+  "creation_index": 5,
+  "parent_name": "v4-full",
+  "parent_id": "58365537fbff7754a19e46e17cf83b50835dffcdab412fecee04dc936f5d97c4",
+  "transformation_step": "auto: file changed at 2026-03-18 18:56:26"
+}

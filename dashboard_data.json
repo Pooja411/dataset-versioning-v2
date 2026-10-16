@@ -1,0 +1,518 @@
+{
+  "nodes": [
+    {
+      "id": "50bc7eb89b4fe323593695ac083f09791ed34f2520353c1cc15f9fa8efdff14c",
+      "name": "v1-raw",
+      "message": "Root version: lowercase + strip only. No punctuation removal or stopwords.",
+      "created_at": "2026-03-20 00:42:01",
+      "parent_id": null,
+      "parent_name": null,
+      "transformation_step": "initial ingestion",
+      "metrics": {
+        "num_rows": 42,
+        "vocabulary_size": 260,
+        "avg_sentence_len": 9.5952,
+        "total_tokens": 403
+      },
+      "config": {
+        "lowercase": true,
+        "remove_duplicates": false,
+        "remove_punctuation": false,
+        "remove_stopwords": false,
+        "strip_whitespace": true,
+        "tokenize": false
+      },
+      "training": {
+        "test_accuracy": 0.5,
+        "macro_f1": 0.495,
+        "top_features": {
+          "negative": [
+            {
+              "token": "to",
+              "discriminative_score": 0.7152
+            },
+            {
+              "token": "for",
+              "discriminative_score": 0.6352
+            },
+            {
+              "token": "difficult",
+              "discriminative_score": 0.5524
+            },
+            {
+              "token": "it",
+              "discriminative_score": 0.5338
+            },
+            {
+              "token": "makes",
+              "discriminative_score": 0.5338
+            },
+            {
+              "token": "leads",
+              "discriminative_score": 0.5181
+            },
+            {
+              "token": "real-world",
+              "discriminative_score": 0.4989
+            },
+            {
+              "token": "causes",
+              "discriminative_score": 0.4851
+            }
+          ],
+          "positive": [
+            {
+              "token": "generalization",
+              "discriminative_score": 0.5552
+            },
+            {
+              "token": "improves",
+              "discriminative_score": 0.5552
+            },
+            {
+              "token": "performance",
+              "discriminative_score": 0.534
+            },
+            {
+              "token": "results",
+              "discriminative_score": 0.534
+            },
+            {
+              "token": "by",
+              "discriminative_score": 0.5164
+            },
+            {
+              "token": "achieve",
+              "discriminative_score": 0.5069
+            },
+            {
+              "token": "feature",
+              "discriminative_score": 0.5069
+            },
+            {
+              "token": "patterns",
+              "discriminative_score": 0.5069
+            }
+          ]
+        }
+      },
+      "has_training_report": true
+    },
+    {
+      "id": "727e2cb51e998cd72e062a9cb22840df0b198665c317fc48f04a4ea2acfed807",
+      "name": "v2-dedup-punct",
+      "message": "Added deduplication and punctuation removal on top of v1-raw.",
+      "created_at": "2026-03-20 00:42:01",
+      "parent_id": "50bc7eb89b4fe323593695ac083f09791ed34f2520353c1cc15f9fa8efdff14c",
+      "parent_name": "v1-raw",
+      "transformation_step": "remove_duplicates + remove_punctuation",
+      "metrics": {
+        "num_rows": 42,
+        "vocabulary_size": 247,
+        "avg_sentence_len": 9.5952,
+        "total_tokens": 403
+      },
+      "config": {
+        "lowercase": true,
+        "remove_duplicates": true,
+        "remove_punctuation": true,
+        "remove_stopwords": false,
+        "strip_whitespace": true,
+        "tokenize": false
+      },
+      "training": {
+        "test_accuracy": 0.2,
+        "macro_f1": 0.1666,
+        "top_features": {
+          "negative": [
+            {
+              "token": "to",
+              "discriminative_score": 0.715
+            },
+            {
+              "token": "for",
+              "discriminative_score": 0.635
+            },
+            {
+              "token": "difficult",
+              "discriminative_score": 0.5521
+            },
+            {
+              "token": "it",
+              "discriminative_score": 0.5336
+            },
+            {
+              "token": "makes",
+              "discriminative_score": 0.5336
+            },
+            {
+              "token": "leads",
+              "discriminative_score": 0.5178
+            },
+            {
+              "token": "realworld",
+              "discriminative_score": 0.4986
+            },
+            {
+              "token": "causes",
+              "discriminative_score": 0.4848
+            }
+          ],
+          "positive": [
+            {
+              "token": "performance",
+              "discriminative_score": 0.7029
+            },
+            {
+              "token": "generalization",
+              "discriminative_score": 0.5555
+            },
+            {
+              "token": "improves",
+              "discriminative_score": 0.5555
+            },
+            {
+              "token": "results",
+              "discriminative_score": 0.5343
+            },
+            {
+              "token": "by",
+              "discriminative_score": 0.5166
+            },
+            {
+              "token": "achieve",
+              "discriminative_score": 0.5072
+            },
+            {
+              "token": "engineering",
+              "discriminative_score": 0.5072
+            },
+            {
+              "token": "feature",
+              "discriminative_score": 0.5072
+            }
+          ]
+        }
+      },
+      "has_training_report": true
+    },
+    {
+      "id": "9bb2935b50ab0c27afe4905b752030f5ae4527b517b5bfca7e5ad18647db7d75",
+      "name": "v3-stopwords",
+      "message": "Added stopword removal on top of v2. Testing if removing function words helps.",
+      "created_at": "2026-03-20 00:42:01",
+      "parent_id": "727e2cb51e998cd72e062a9cb22840df0b198665c317fc48f04a4ea2acfed807",
+      "parent_name": "v2-dedup-punct",
+      "transformation_step": "remove_stopwords",
+      "metrics": {
+        "num_rows": 42,
+        "vocabulary_size": 224,
+        "avg_sentence_len": 7.7143,
+        "total_tokens": 324
+      },
+      "config": {
+        "lowercase": true,
+        "remove_duplicates": true,
+        "remove_punctuation": true,
+        "remove_stopwords": true,
+        "strip_whitespace": true,
+        "tokenize": false
+      },
+      "training": {
+        "test_accuracy": 0.2,
+        "macro_f1": 0.2,
+        "top_features": {
+          "negative": [
+            {
+              "token": "difficult",
+              "discriminative_score": 0.7194
+            },
+            {
+              "token": "makes",
+              "discriminative_score": 0.6457
+            },
+            {
+              "token": "leads",
+              "discriminative_score": 0.6198
+            },
+            {
+              "token": "often",
+              "discriminative_score": 0.5933
+            },
+            {
+              "token": "realworld",
+              "discriminative_score": 0.5933
+            },
+            {
+              "token": "causes",
+              "discriminative_score": 0.5534
+            },
+            {
+              "token": "new",
+              "discriminative_score": 0.5534
+            },
+            {
+              "token": "blackbox",
+              "discriminative_score": 0.5218
+            }
+          ],
+          "positive": [
+            {
+              "token": "performance",
+              "discriminative_score": 0.8243
+            },
+            {
+              "token": "generalization",
+              "discriminative_score": 0.6579
+            },
+            {
+              "token": "engineering",
+              "discriminative_score": 0.6164
+            },
+            {
+              "token": "feature",
+              "discriminative_score": 0.6164
+            },
+            {
+              "token": "improves",
+              "discriminative_score": 0.6164
+            },
+            {
+              "token": "patterns",
+              "discriminative_score": 0.6164
+            },
+            {
+              "token": "results",
+              "discriminative_score": 0.5914
+            },
+            {
+              "token": "achieve",
+              "discriminative_score": 0.5583
+            }
+          ]
+        }
+      },
+      "has_training_report": true
+    },
+    {
+      "id": "4676e2b796b8f0493e9e6f128a198ce0efd1fed47aeebfd3cad4a3667e7e93fe",
+      "name": "v3-tokenized",
+      "message": "Alternative to v3-stopwords: tokenize only, no stopword removal. Parallel experiment.",
+      "created_at": "2026-03-20 00:42:01",
+      "parent_id": "727e2cb51e998cd72e062a9cb22840df0b198665c317fc48f04a4ea2acfed807",
+      "parent_name": "v2-dedup-punct",
+      "transformation_step": "tokenize",
+      "metrics": {
+        "num_rows": 42,
+        "vocabulary_size": 247,
+        "avg_sentence_len": 9.5952,
+        "total_tokens": 403
+      },
+      "config": {
+        "lowercase": true,
+        "remove_duplicates": true,
+        "remove_punctuation": true,
+        "remove_stopwords": false,
+        "strip_whitespace": true,
+        "tokenize": true
+      },
+      "training": {
+        "test_accuracy": 0.2,
+        "macro_f1": 0.1666,
+        "top_features": {
+          "negative": [
+            {
+              "token": "to",
+              "discriminative_score": 0.715
+            },
+            {
+              "token": "for",
+              "discriminative_score": 0.635
+            },
+            {
+              "token": "difficult",
+              "discriminative_score": 0.5521
+            },
+            {
+              "token": "it",
+              "discriminative_score": 0.5336
+            },
+            {
+              "token": "makes",
+              "discriminative_score": 0.5336
+            },
+            {
+              "token": "leads",
+              "discriminative_score": 0.5178
+            },
+            {
+              "token": "realworld",
+              "discriminative_score": 0.4986
+            },
+            {
+              "token": "causes",
+              "discriminative_score": 0.4848
+            }
+          ],
+          "positive": [
+            {
+              "token": "performance",
+              "discriminative_score": 0.7029
+            },
+            {
+              "token": "generalization",
+              "discriminative_score": 0.5555
+            },
+            {
+              "token": "improves",
+              "discriminative_score": 0.5555
+            },
+            {
+              "token": "results",
+              "discriminative_score": 0.5343
+            },
+            {
+              "token": "by",
+              "discriminative_score": 0.5166
+            },
+            {
+              "token": "achieve",
+              "discriminative_score": 0.5072
+            },
+            {
+              "token": "engineering",
+              "discriminative_score": 0.5072
+            },
+            {
+              "token": "feature",
+              "discriminative_score": 0.5072
+            }
+          ]
+        }
+      },
+      "has_training_report": true
+    },
+    {
+      "id": "c107c1e1792da13c12f36a3ed650606c7d0f14cbc3be19c5e10c2608eef7aaba",
+      "name": "v4-full",
+      "message": "Full pipeline: all 6 steps. Best cleaning. Derived from v3-stopwords + tokenize.",
+      "created_at": "2026-03-20 00:42:01",
+      "parent_id": "9bb2935b50ab0c27afe4905b752030f5ae4527b517b5bfca7e5ad18647db7d75",
+      "parent_name": "v3-stopwords",
+      "transformation_step": "tokenize (completing full pipeline)",
+      "metrics": {
+        "num_rows": 42,
+        "vocabulary_size": 224,
+        "avg_sentence_len": 7.7143,
+        "total_tokens": 324
+      },
+      "config": {
+        "lowercase": true,
+        "remove_duplicates": true,
+        "remove_punctuation": true,
+        "remove_stopwords": true,
+        "strip_whitespace": true,
+        "tokenize": true
+      },
+      "training": {
+        "test_accuracy": 0.2,
+        "macro_f1": 0.2,
+        "top_features": {
+          "negative": [
+            {
+              "token": "difficult",
+              "discriminative_score": 0.7194
+            },
+            {
+              "token": "makes",
+              "discriminative_score": 0.6457
+            },
+            {
+              "token": "leads",
+              "discriminative_score": 0.6198
+            },
+            {
+              "token": "often",
+              "discriminative_score": 0.5933
+            },
+            {
+              "token": "realworld",
+              "discriminative_score": 0.5933
+            },
+            {
+              "token": "causes",
+              "discriminative_score": 0.5534
+            },
+            {
+              "token": "new",
+              "discriminative_score": 0.5534
+            },
+            {
+              "token": "blackbox",
+              "discriminative_score": 0.5218
+            }
+          ],
+          "positive": [
+            {
+              "token": "performance",
+              "discriminative_score": 0.8243
+            },
+            {
+              "token": "generalization",
+              "discriminative_score": 0.6579
+            },
+            {
+              "token": "engineering",
+              "discriminative_score": 0.6164
+            },
+            {
+              "token": "feature",
+              "discriminative_score": 0.6164
+            },
+            {
+              "token": "improves",
+              "discriminative_score": 0.6164
+            },
+            {
+              "token": "patterns",
+              "discriminative_score": 0.6164
+            },
+            {
+              "token": "results",
+              "discriminative_score": 0.5914
+            },
+            {
+              "token": "achieve",
+              "discriminative_score": 0.5583
+            }
+          ]
+        }
+      },
+      "has_training_report": true
+    }
+  ],
+  "edges": [
+    {
+      "source": "50bc7eb89b4fe323593695ac083f09791ed34f2520353c1cc15f9fa8efdff14c",
+      "target": "727e2cb51e998cd72e062a9cb22840df0b198665c317fc48f04a4ea2acfed807",
+      "label": "remove_duplicates + remove_punctuation"
+    },
+    {
+      "source": "727e2cb51e998cd72e062a9cb22840df0b198665c317fc48f04a4ea2acfed807",
+      "target": "9bb2935b50ab0c27afe4905b752030f5ae4527b517b5bfca7e5ad18647db7d75",
+      "label": "remove_stopwords"
+    },
+    {
+      "source": "727e2cb51e998cd72e062a9cb22840df0b198665c317fc48f04a4ea2acfed807",
+      "target": "4676e2b796b8f0493e9e6f128a198ce0efd1fed47aeebfd3cad4a3667e7e93fe",
+      "label": "tokenize"
+    },
+    {
+      "source": "9bb2935b50ab0c27afe4905b752030f5ae4527b517b5bfca7e5ad18647db7d75",
+      "target": "c107c1e1792da13c12f36a3ed650606c7d0f14cbc3be19c5e10c2608eef7aaba",
+      "label": "tokenize (completing full pipeline)"
+    }
+  ],
+  "latest_id": "c107c1e1792da13c12f36a3ed650606c7d0f14cbc3be19c5e10c2608eef7aaba",
+  "head_name": null
+}

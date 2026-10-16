@@ -1,0 +1,6 @@
+{
+  "name": "v1-minimal",
+  "message": "Minimal: lowercase + strip only. Keeps punctuation, stopwords, raw tokens.",
+  "version_id": "073db5272d3cf0f6a29bd658a26bb32349aaa59c84859cec4bb8fb8e36131a32",
+  "created_at": "2026-03-16 10:33:41"
+}

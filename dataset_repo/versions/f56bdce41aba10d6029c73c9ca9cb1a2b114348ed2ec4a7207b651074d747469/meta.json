@@ -1,0 +1,6 @@
+{
+  "name": "v2-full-clean",
+  "message": "Full pipeline: all 6 steps enabled. Removes punctuation, duplicates, stopwords, tokenizes.",
+  "version_id": "f56bdce41aba10d6029c73c9ca9cb1a2b114348ed2ec4a7207b651074d747469",
+  "created_at": "2026-03-16 10:33:42"
+}
