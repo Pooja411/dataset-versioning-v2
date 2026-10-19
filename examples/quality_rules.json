@@ -1,0 +1,11 @@
+{
+  "rules": [
+    {"check": "required_columns", "columns": ["id", "text", "label", "rating"]},
+    {"check": "unique_key", "columns": ["id"]},
+    {"check": "column_type", "column": "rating", "type": "int"},
+    {"check": "range", "column": "rating", "min": 1, "max": 5},
+    {"check": "allowed_values", "column": "label", "values": ["positive", "negative"]},
+    {"check": "max_missing", "column": "*", "fraction": 0.05, "severity": "warning"},
+    {"check": "min_rows", "n": 20}
+  ]
+}

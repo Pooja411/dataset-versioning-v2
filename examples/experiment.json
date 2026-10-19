@@ -1,0 +1,8 @@
+{
+  "file": "reviews.csv",
+  "text_column": "text",
+  "label_column": "label",
+  "alpha": 1.0,
+  "test_ratio": 0.25,
+  "seed": 42
+}

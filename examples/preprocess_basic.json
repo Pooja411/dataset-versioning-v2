@@ -1,5 +1,4 @@
 {
-  "_comment": "Edit this file to change preprocessing. Then run: python dsv.py add --config config.json && python dsv.py commit --name <n> --message <msg>",
   "strip_whitespace": true,
   "lowercase": true,
   "remove_punctuation": true,

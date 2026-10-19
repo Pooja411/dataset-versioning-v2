@@ -1,0 +1,197 @@
+import contextlib
+import io
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import threading
+import unittest
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+from datavault.cli import main
+from datavault.experiments import run_experiment
+from datavault.legacy import import_legacy
+from datavault.repo import Repository
+from datavault.verify import verify
+from datavault.web.server import build_graph, make_server
+from helpers import EXAMPLES, LABELED, ROOT, RepoTestCase
+
+ENV = {k: v for k, v in os.environ.items() if not k.startswith(("DATAVAULT_", "ANTHROPIC_", "OPENAI_"))}
+ENV["PYTHONPATH"] = str(ROOT / "src")
+
+
+class CliTests(unittest.TestCase):
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self._tmp.cleanup)
+        self.dir = Path(self._tmp.name)
+        shutil.copy(EXAMPLES / "reviews.csv", self.dir / "reviews.csv")
+        for name in ("quality_rules.json", "experiment.json"):
+            shutil.copy(EXAMPLES / name, self.dir / name)
+
+    def run_cli(self, *args, env=None):
+        done = subprocess.run(
+            [sys.executable, "-m", "datavault", *args], cwd=self.dir, env=env or ENV,
+            capture_output=True, text=True, timeout=60,
+        )
+        return done.returncode, done.stdout, done.stderr
+
+    def ok(self, *args):
+        code, out, err = self.run_cli(*args)
+        self.assertEqual(code, 0, f"{args}: {err}")
+        return out
+
+    def test_full_workflow_without_any_ai_configuration(self):
+        self.ok("init")
+        self.ok("add", "reviews.csv")
+        self.ok("commit", "-m", "initial", "--checks", "quality_rules.json")
+        (self.dir / "reviews.csv").write_text((self.dir / "reviews.csv").read_text() + "61,fine,positive,4\n")
+        self.ok("add", "reviews.csv")
+        self.ok("commit", "-m", "one more row")
+        self.ok("tag", "v1", "HEAD~1")
+        log = json.loads(self.ok("log", "--json"))
+        self.assertEqual(len(log), 2)
+        diff = json.loads(self.ok("diff", "v1", "HEAD", "--json"))
+        self.assertEqual(diff["stats"]["reviews.csv"]["rows"]["delta"], 1)
+        self.ok("experiment", "run", "v1", "--config", "experiment.json")
+        self.ok("experiment", "run", "HEAD", "--config", "experiment.json")
+        listing = json.loads(self.ok("experiment", "list", "--json"))
+        self.assertEqual(len(listing), 2)
+        self.ok("experiment", "compare", listing[0]["id"][:8], listing[1]["id"][:8])
+        repro = json.loads(self.ok("experiment", "reproduce", listing[0]["id"][:8]))
+        self.assertTrue(repro["same_metrics"] and repro["same_model_artifact"])
+        report = json.loads(self.ok("verify", "--all", "--json"))
+        self.assertTrue(report["ok"])
+        self.assertIn("working tree clean", self.ok("status"))
+
+    def test_verify_exit_code_on_corruption(self):
+        self.ok("init")
+        self.ok("add", "reviews.csv")
+        self.ok("commit", "-m", "initial")
+        for path in (self.dir / ".datavault" / "objects").rglob("*"):
+            if path.is_file():
+                path.chmod(0o644)
+                data = path.read_bytes()
+                path.write_bytes(data[:-1] + bytes([data[-1] ^ 1]))
+        code, out, _ = self.run_cli("verify", "--all")
+        self.assertEqual(code, 1)
+        self.assertIn("hash_mismatch", out)
+
+    def test_ai_unavailable_exit_code_and_deterministic_commands_still_work(self):
+        self.ok("init")
+        self.ok("add", "reviews.csv")
+        self.ok("commit", "-m", "a")
+        code, _, err = self.run_cli("ai", "dataset", "HEAD", "HEAD")
+        self.assertEqual(code, 3)
+        self.assertIn("not configured", err)
+        self.assertEqual(self.run_cli("diff", "HEAD", "HEAD")[0], 0)
+
+    def test_external_provider_blocked_without_opt_in(self):
+        self.ok("init")
+        self.ok("add", "reviews.csv")
+        self.ok("commit", "-m", "a")
+        env = {**ENV, "DATAVAULT_AI_PROVIDER": "anthropic", "DATAVAULT_AI_MODEL": "m", "ANTHROPIC_API_KEY": "k"}
+        code, _, err = self.run_cli("ai", "dataset", "HEAD", "HEAD", env=env)
+        self.assertEqual(code, 3)
+        self.assertIn("opt in", err)
+
+    def test_mock_provider_flow_through_cli(self):
+        self.ok("init")
+        self.ok("add", "reviews.csv")
+        self.ok("commit", "-m", "a")
+        canned = {k: [] for k in ("summary", "preprocessing_implications", "training_implications", "quality_concerns", "suggested_checks", "uncertainties")}
+        canned["summary"] = [{"statement": "Content is identical.", "kind": "hypothesis", "evidence": ["E2"]}]
+        (self.dir / "canned.json").write_text(json.dumps(canned))
+        env = {**ENV, "DATAVAULT_AI_PROVIDER": "mock", "DATAVAULT_AI_MOCK_RESPONSE": str(self.dir / "canned.json")}
+        code, out, err = self.run_cli("ai", "dataset", "HEAD", "HEAD", env=env)
+        self.assertEqual(code, 0, err)
+        self.assertIn("HYPOTHESIS", out)
+        self.assertIn("Generated by a language model", out)
+
+    def test_usage_errors(self):
+        self.assertEqual(self.run_cli("nonsense")[0], 2)
+        self.assertEqual(self.run_cli("status")[0], 1)
+        self.ok("init")
+        self.assertEqual(self.run_cli("init")[0], 1)
+        self.assertEqual(self.run_cli("add", "../outside")[0], 1)
+
+    def test_main_returns_codes_in_process(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(main(["-C", str(self.dir), "init"]), 0)
+            self.assertEqual(main(["-C", str(self.dir), "status", "--json"]), 0)
+
+
+class LegacyImportTests(RepoTestCase):
+    def test_existing_project_data_can_be_imported_and_verifies(self):
+        result = import_legacy(self.repo, EXAMPLES / "legacy_dataset_repo")
+        self.assertGreaterEqual(result["imported"], 5)
+        self.assertTrue(verify(self.repo, deep=True).ok)
+        self.assertIn("v4-full", self.repo.tags())
+        full = self.repo.load_commit(self.repo.resolve("v4-full"))
+        self.assertTrue(full.preprocessing["remove_stopwords"])
+        self.assertTrue(full.parents)
+        record = run_experiment(self.repo, "v4-full")
+        self.assertEqual(record["status"], "completed")
+
+    def test_rejects_non_legacy_directory(self):
+        from datavault.errors import ValidationFailed
+        with self.assertRaises(ValidationFailed):
+            import_legacy(self.repo, self.root)
+
+
+class WebTests(RepoTestCase):
+    def setUp(self):
+        super().setUp()
+        self.c1 = self.commit_file("data.txt", LABELED, "labeled")
+        self.exp = run_experiment(self.repo, "HEAD")
+        self.server = make_server(self.repo, "127.0.0.1", 0)
+        self.port = self.server.server_address[1]
+        threading.Thread(target=self.server.serve_forever, daemon=True).start()
+        self.addCleanup(self.server.server_close)
+        self.addCleanup(self.server.shutdown)
+
+    def get(self, path, host=None):
+        req = urllib.request.Request(f"http://127.0.0.1:{self.port}{path}")
+        if host:
+            req.add_header("Host", host)
+        try:
+            with urllib.request.urlopen(req, timeout=5) as resp:
+                return resp.status, dict(resp.headers), resp.read()
+        except urllib.error.HTTPError as exc:
+            return exc.code, dict(exc.headers), exc.read()
+
+    def test_graph_exposes_real_lineage(self):
+        status, headers, body = self.get("/api/graph")
+        graph = json.loads(body)
+        self.assertEqual(status, 200)
+        self.assertEqual(graph["commits"][0]["id"], self.c1.id)
+        self.assertEqual(graph["experiments"][0]["id"], self.exp["id"])
+        self.assertIn({"source": self.c1.id, "target": self.exp["id"], "kind": "experiment"}, graph["edges"])
+        self.assertIn("Content-Security-Policy", headers)
+
+    def test_detail_endpoints(self):
+        self.assertEqual(json.loads(self.get(f"/api/commit/{self.c1.id[:10]}")[2])["id"], self.c1.id)
+        self.assertEqual(json.loads(self.get(f"/api/experiment/{self.exp['id'][:10]}")[2])["status"], "completed")
+        self.assertTrue(json.loads(self.get("/api/verify")[2])["ok"])
+        self.assertEqual(self.get("/")[0], 200)
+        self.assertEqual(self.get("/app.js")[0], 200)
+
+    def test_errors_and_hardening(self):
+        self.assertEqual(self.get("/api/commit/nope")[0], 400)
+        self.assertEqual(self.get("/api/missing")[0], 404)
+        self.assertEqual(self.get("/api/ai/..%2f..%2fconfig.json")[0], 404)
+        self.assertEqual(self.get("/api/graph", host="evil.example.com")[0], 403)
+
+    def test_empty_repository_graph(self):
+        empty = tempfile.TemporaryDirectory()
+        self.addCleanup(empty.cleanup)
+        graph = build_graph(Repository.init(Path(empty.name)))
+        self.assertEqual((graph["commits"], graph["experiments"]), ([], []))
+
+
+if __name__ == "__main__":
+    unittest.main()
