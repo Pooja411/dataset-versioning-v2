@@ -19,7 +19,7 @@ class FileEntry:
         return {"sha256": self.sha256, "size": self.size}
 
     @staticmethod
-    def from_dict(raw: Any) -> "FileEntry":
+    def from_dict(raw: Any) -> FileEntry:
         if not isinstance(raw, dict) or set(raw) != {"sha256", "size"}:
             raise CorruptRepository("file entry must contain exactly sha256 and size")
         digest, size = raw["sha256"], raw["size"]
@@ -81,7 +81,7 @@ class Commit:
         return sha256_json(self.to_dict())
 
     @staticmethod
-    def from_dict(raw: Any) -> "Commit":
+    def from_dict(raw: Any) -> Commit:
         if not isinstance(raw, dict):
             raise CorruptRepository("commit must be an object")
         version = raw.get("schema_version")

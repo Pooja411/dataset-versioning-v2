@@ -15,7 +15,7 @@ class TFIDFVectorizer:
         self.vocabulary: dict[str, int] = {}
         self.idf: dict[str, float] = {}
 
-    def fit(self, docs: list[str]) -> "TFIDFVectorizer":
+    def fit(self, docs: list[str]) -> TFIDFVectorizer:
         df: Counter[str] = Counter()
         for doc in docs:
             df.update(set(doc.lower().split()))
@@ -55,7 +55,7 @@ class NaiveBayes:
         self.log_priors: dict[str, float] = {}
         self.log_probs: dict[str, list[float]] = {}
 
-    def fit(self, vectors: list[Vector], labels: list[str], vocab_size: int) -> "NaiveBayes":
+    def fit(self, vectors: list[Vector], labels: list[str], vocab_size: int) -> NaiveBayes:
         self.classes = sorted(set(labels))
         counts = Counter(labels)
         self.log_priors = {c: math.log(counts[c] / len(labels)) for c in self.classes}

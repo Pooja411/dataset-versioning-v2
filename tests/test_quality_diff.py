@@ -1,9 +1,10 @@
 import unittest
 
+from helpers import RepoTestCase
+
 from datavault.diff import diff_commits
 from datavault.errors import ValidationFailed
 from datavault.quality import run_checks, validate_config
-from helpers import RepoTestCase
 
 CSV_A = "id,age,label,note\n1,30,a,x\n2,40,b,y\n3,50,a,z\n4,25,b,w\n"
 CSV_B = "id,age,label,note\n1,30,a,x\n2,,b,\n3,500,a,\n4,25,c,w\n4,25,c,w\n"

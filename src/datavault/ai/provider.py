@@ -6,8 +6,9 @@ import socket
 import time
 import urllib.error
 import urllib.request
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Callable, Protocol
+from typing import Any, Protocol
 from urllib.parse import urlparse
 
 from ..errors import (
@@ -69,7 +70,7 @@ def urllib_transport(url: str, headers: dict[str, str], body: bytes, timeout: fl
             return resp.status, dict(resp.headers), resp.read(8 * 1024 * 1024)
     except urllib.error.HTTPError as exc:
         return exc.code, dict(exc.headers or {}), exc.read(1024 * 1024)
-    except (socket.timeout, TimeoutError) as exc:
+    except TimeoutError as exc:
         raise ProviderTimeout("request timed out") from exc
     except urllib.error.URLError as exc:
         if isinstance(exc.reason, (socket.timeout, TimeoutError)):

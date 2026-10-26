@@ -3,10 +3,11 @@ from __future__ import annotations
 import json
 import os
 import re
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Iterable
+from typing import Any
 
 from .datasets import detect_format, infer_schema
 from .errors import (
@@ -80,7 +81,7 @@ class Repository:
         self.lock_path = self.dv / "lock"
 
     @classmethod
-    def init(cls, root: Path) -> "Repository":
+    def init(cls, root: Path) -> Repository:
         repo = cls(root)
         if repo.dv.exists():
             raise RepositoryExists(f"repository already exists at {repo.dv}")
@@ -96,7 +97,7 @@ class Repository:
         return repo
 
     @classmethod
-    def find(cls, start: Path | None = None) -> "Repository":
+    def find(cls, start: Path | None = None) -> Repository:
         here = (start or Path.cwd()).resolve()
         for candidate in (here, *here.parents):
             if (candidate / DIRNAME / "format").is_file():

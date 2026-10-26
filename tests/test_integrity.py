@@ -5,11 +5,12 @@ import time
 import unittest
 from unittest import mock
 
+from helpers import LABELED, RepoTestCase
+
 from datavault.errors import ValidationFailed
 from datavault.gc import collect
 from datavault.repo import Repository
 from datavault.verify import verify
-from helpers import LABELED, RepoTestCase
 
 
 class VerifyTests(RepoTestCase):

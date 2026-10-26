@@ -2,9 +2,9 @@ import os
 import re
 import tempfile
 import time
+from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path, PurePosixPath
-from typing import Iterator
 
 from .errors import InvalidReference, LockTimeout, UnsafePath
 

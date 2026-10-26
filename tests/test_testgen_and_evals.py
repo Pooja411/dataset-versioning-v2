@@ -3,10 +3,11 @@ import os
 import unittest
 from unittest import mock
 
+from helpers import RepoTestCase
+
 from datavault.ai import evals, testgen
 from datavault.ai.provider import MockProvider
 from datavault.errors import InvalidModelOutput, UnsafePath, ValidationFailed
-from helpers import RepoTestCase
 
 GOOD_TESTS = '''import unittest
 from calc import add

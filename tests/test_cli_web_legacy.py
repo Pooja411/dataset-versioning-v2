@@ -12,13 +12,14 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+from helpers import EXAMPLES, LABELED, ROOT, RepoTestCase
+
 from datavault.cli import main
 from datavault.experiments import run_experiment
 from datavault.legacy import import_legacy
 from datavault.repo import Repository
 from datavault.verify import verify
 from datavault.web.server import build_graph, make_server
-from helpers import EXAMPLES, LABELED, ROOT, RepoTestCase
 
 ENV = {k: v for k, v in os.environ.items() if not k.startswith(("DATAVAULT_", "ANTHROPIC_", "OPENAI_"))}
 ENV["PYTHONPATH"] = str(ROOT / "src")

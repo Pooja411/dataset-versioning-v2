@@ -1,20 +1,30 @@
 import json
 import unittest
 
+from helpers import LABELED, RepoTestCase
+
 from datavault.ai import analysts
 from datavault.ai.evidence import EvidenceSet, clean, dataset_evidence
 from datavault.ai.provider import (
-    AnthropicProvider, LLMRequest, MockProvider, OpenAICompatibleProvider, build_provider,
+    AnthropicProvider,
+    LLMRequest,
+    MockProvider,
+    OpenAICompatibleProvider,
+    build_provider,
 )
 from datavault.ai.schemas import extract_json, validate
 from datavault.diff import diff_commits
 from datavault.errors import (
-    AIError, ExternalDisabled, InvalidModelOutput, ProviderTimeout, ProviderUnavailable, RateLimited,
+    AIError,
+    ExternalDisabled,
+    InvalidModelOutput,
+    ProviderTimeout,
+    ProviderUnavailable,
+    RateLimited,
     RequestTooLarge,
 )
 from datavault.experiments import run_experiment
 from datavault.verify import verify
-from helpers import LABELED, RepoTestCase
 
 SECRET = "sk-ant-SUPERSECRETKEY1234567890"
 REQ = LLMRequest("sys", "hello")

@@ -1,14 +1,19 @@
 import json
 import unittest
 
+from helpers import LABELED, RepoTestCase
+
 from datavault.errors import ValidationFailed
 from datavault.experiments import (
-    compare_experiments, get_experiment, list_experiments, reproduce, run_experiment,
+    compare_experiments,
+    get_experiment,
+    list_experiments,
+    reproduce,
+    run_experiment,
 )
 from datavault.ml.model import NaiveBayes, TFIDFVectorizer, evaluate, stratified_split
 from datavault.ml.preprocessing import preprocess, preprocess_labeled_text, split_label
 from datavault.verify import verify
-from helpers import LABELED, RepoTestCase
 
 
 class PreprocessingTests(unittest.TestCase):

@@ -4,8 +4,8 @@ import hashlib
 import os
 import stat
 import tempfile
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Iterator
 
 from .errors import CorruptRepository, UnsafePath
 from .fsutil import atomic_write, fsync_dir

@@ -4,9 +4,10 @@ import json
 import platform
 import subprocess
 import time
+from collections.abc import Callable
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from . import __version__
 from .datasets import detect_format
